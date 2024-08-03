@@ -2,16 +2,26 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Blockly Sample App</title>
   </head>
   <body>
-    <button id="connect">Connect</button>
     <div id="pageContainer">
-      <div id="outputPane">
-        <pre id="generatedCode"><code></code></pre>
-        <div id="output"></div>
+      <div id="header">
+        <h1>PhoneDuino</h1>
+        <div id="buttons">
+          <button id="connect">Connect</button>
+          <button onclick="handleClick(this, 'generatedCode')">
+            Javascript
+          </button>
+          <button onclick="handleClick(this, 'output')">Output</button>
+        </div>
       </div>
       <div id="blocklyDiv"></div>
+    </div>
+    <div id="outputPanel">
+      <pre id="generatedCode"><code></code></pre>
+      <div id="output"></div>
     </div>
   </body>
 </html>

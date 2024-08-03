@@ -48,11 +48,43 @@ const blocklyDiv = document.getElementById("blocklyDiv");
 if (!blocklyDiv) {
   throw new Error(`div with id 'blocklyDiv' not found`);
 }
-const ws = Blockly.inject(blocklyDiv, { toolbox });
+
+function handleCheck(element: HTMLElement, divId: string) {
+  const tab = document.getElementById(divId);
+  if (tab) {
+    if (tab.style.display === "block") {
+      element.style.backgroundColor = "#ededed";
+      element.style.color = "#000";
+      tab.style.display = "none";
+    } else {
+      element.style.backgroundColor = "#6998ff";
+      element.style.color = "#fff";
+      tab.style.display = "block";
+    }
+  }
+}
+
+(window as any).handleClick = handleCheck;
+
+const ws = Blockly.inject(blocklyDiv, {
+  toolbox: toolbox,
+  zoom: {
+    controls: true,
+    wheel: true,
+    startScale: 1.0,
+    maxScale: 3,
+    minScale: 0.3,
+    scaleSpeed: 1.2,
+    pinch: true,
+  },
+  trashcan: true,
+});
 
 // This function resets the code and output divs, shows the
 // generated code from the workspace, and evals the code.
 // In a real application, you probably shouldn't use `eval`.
+// Array to keep track of interval IDs
+let intervalIds: number[] = [];
 const runCode = () => {
   // Initial declarations
   const write_to_device = write;
@@ -63,6 +95,17 @@ const runCode = () => {
     beta: 0,
     gamma: 0,
   };
+
+  // Function to clear all intervals
+  function clearAllIntervals() {
+    for (let id of intervalIds) {
+      clearInterval(id);
+    }
+    // Clear the array after clearing all intervals
+    intervalIds = [];
+  }
+  clearAllIntervals();
+  outputDiv?.innerHTML;
   const code = javascriptGenerator.workspaceToCode(ws as Blockly.Workspace);
   if (codeDiv) codeDiv.textContent = code;
 

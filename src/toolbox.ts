@@ -659,10 +659,6 @@ export const toolbox = {
       contents: [
         {
           kind: "block",
-          type: "connect",
-        },
-        {
-          kind: "block",
           type: "write",
         },
       ],

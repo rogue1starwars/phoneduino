@@ -48,8 +48,19 @@ forBlock["add_text"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
 ) {
-  const text = generator.valueToCode(block, "TEXT", Order.ATOMIC);
-  return `console.log(${text});`;
+  const text: string = generator.valueToCode(block, "TEXT", Order.ATOMIC);
+  if (text == "") {
+    return "// No text provided\n";
+  }
+  const code = `
+const lines = outputDiv.innerHTML.split('<br>');
+if (lines.length > 10) {
+  lines.pop();
+  outputDiv.innerHTML = lines.join('<br>');
+}
+console.log(lines.length);
+outputDiv.innerHTML = ${text} + '<br>' + outputDiv.innerHTML;`;
+  return code;
 };
 
 forBlock["interval"] = function (
@@ -61,7 +72,8 @@ forBlock["interval"] = function (
 
   // TODO: Assemble javascript into the code variable.
   const code = `
-  setInterval(() => {${statement_function}}, ${number_time});`;
+  intervalIds.push(setInterval(() => {${statement_function}}, ${number_time}));
+  `;
   return code;
 };
 // forBlock["connect"] = function (

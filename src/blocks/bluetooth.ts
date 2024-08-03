@@ -5,13 +5,6 @@
  */
 
 import * as Blockly from "blockly/core";
-const connect = {
-  type: "connect",
-  tooltip: "",
-  helpUrl: "",
-  message0: "",
-  colour: 225,
-};
 const write = {
   type: "write",
   tooltip: "",
@@ -30,4 +23,4 @@ const write = {
 // This does not register their definitions with Blockly.
 // This file has no side effects!
 export const bluetoothBlocks =
-  Blockly.common.createBlockDefinitionsFromJsonArray([connect, write]);
+  Blockly.common.createBlockDefinitionsFromJsonArray([write]);
