@@ -127,3 +127,36 @@ forBlock["write"] = function (
   const code = `write_to_device({deviceInfo: deviceInfo, data: ${data}});`;
   return code;
 };
+
+forBlock["enableDeviceOrientation"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  const code = `window.addEventListener("deviceorientation", (event) => {
+  deviceOrientation.alpha = event.alpha;
+  deviceOrientation.beta = event.beta;
+  deviceOrientation.gamma = event.gamma;
+});`;
+  return code;
+};
+
+forBlock["getAlpha"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  return [`deviceOrientation.alpha`, Order.ATOMIC];
+};
+
+forBlock["getBeta"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  return [`deviceOrientation.beta`, Order.ATOMIC];
+};
+
+forBlock["getGamma"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  return [`deviceOrientation.gamma`, Order.ATOMIC];
+};

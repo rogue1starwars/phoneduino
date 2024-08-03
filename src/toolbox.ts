@@ -633,6 +633,28 @@ export const toolbox = {
     },
     {
       kind: "category",
+      name: "orientation",
+      contents: [
+        {
+          kind: "block",
+          type: "enableDeviceOrientation",
+        },
+        {
+          kind: "block",
+          type: "getAlpha",
+        },
+        {
+          kind: "block",
+          type: "getBeta",
+        },
+        {
+          kind: "block",
+          type: "getGamma",
+        },
+      ],
+    },
+    {
+      kind: "category",
       name: "bluetooth",
       contents: [
         {

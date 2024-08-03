@@ -9,6 +9,7 @@ import { geolocationBlocks } from "./blocks/geolocation";
 import { textBlocks } from "./blocks/text";
 import { intervalBlocks } from "./blocks/interval";
 import { bluetoothBlocks } from "./blocks/bluetooth";
+import { deviceOrientationBlocks } from "./blocks/deviceOrientation";
 import { forBlock } from "./generators/javascript";
 import { javascriptGenerator } from "blockly/javascript";
 import { save, load } from "./serialization";
@@ -36,6 +37,7 @@ Blockly.common.defineBlocks(geolocationBlocks);
 Blockly.common.defineBlocks(intervalBlocks);
 Blockly.common.defineBlocks(textBlocks);
 Blockly.common.defineBlocks(bluetoothBlocks);
+Blockly.common.defineBlocks(deviceOrientationBlocks);
 Object.assign(javascriptGenerator.forBlock, forBlock);
 
 // Set up UI elements and inject Blockly
@@ -56,6 +58,11 @@ const runCode = () => {
   const write_to_device = write;
   let _latitude = 0;
   let _longitude = 0;
+  let deviceOrientation = {
+    alpha: 0,
+    beta: 0,
+    gamma: 0,
+  };
   const code = javascriptGenerator.workspaceToCode(ws as Blockly.Workspace);
   if (codeDiv) codeDiv.textContent = code;
 
