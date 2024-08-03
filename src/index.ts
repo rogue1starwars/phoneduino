@@ -20,7 +20,6 @@ import "./index.css";
 
 // Connect to the bluetooth device
 
-const write_to_device = write;
 const deviceInfo = {
   hashUUID: {
     serviceUUID: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
@@ -32,9 +31,6 @@ const deviceInfo = {
 };
 handleConnect(deviceInfo);
 // Register the blocks and generator with Blockly
-
-let _latitude = 0;
-let _longitude = 0;
 
 Blockly.common.defineBlocks(geolocationBlocks);
 Blockly.common.defineBlocks(intervalBlocks);
@@ -56,8 +52,10 @@ const ws = Blockly.inject(blocklyDiv, { toolbox });
 // generated code from the workspace, and evals the code.
 // In a real application, you probably shouldn't use `eval`.
 const runCode = () => {
-  const initialCode = `let _latitude = 0; let _longitude = 0;\n
-`;
+  // Initial declarations
+  const write_to_device = write;
+  let _latitude = 0;
+  let _longitude = 0;
   const code = javascriptGenerator.workspaceToCode(ws as Blockly.Workspace);
   if (codeDiv) codeDiv.textContent = code;
 
