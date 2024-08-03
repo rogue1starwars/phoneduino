@@ -156,7 +156,7 @@ forBlock["getAlpha"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
 ) {
-  return [`deviceOrientation.alpha`, Order.ATOMIC];
+  return [`360-deviceOrientation.alpha`, Order.ATOMIC];
 };
 
 forBlock["getBeta"] = function (
