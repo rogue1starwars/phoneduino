@@ -144,7 +144,7 @@ forBlock["enableDeviceOrientation"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
 ) {
-  const code = `window.addEventListener("deviceorientation", (event) => {
+  const code = `window.addEventListener("deviceorientationabsolute", (event) => {
   deviceOrientation.alpha = event.alpha;
   deviceOrientation.beta = event.beta;
   deviceOrientation.gamma = event.gamma;
