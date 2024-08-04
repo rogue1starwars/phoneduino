@@ -67,8 +67,6 @@ forBlock["interval"] = function (
 ) {
   const number_time = block.getFieldValue("time");
   const statement_function = generator.statementToCode(block, "function");
-
-  // TODO: Assemble javascript into the code variable.
   const code = `
   intervalIds.push(setInterval(() => {${statement_function}}, ${number_time}));
   `;
@@ -78,11 +76,7 @@ forBlock["write"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
 ) {
-  // TODO: change Order.ATOMIC to the correct operator precedence strength
   const data = generator.valueToCode(block, "NAME", Order.ATOMIC);
-
-  // TODO: Assemble javascript into the code variable.
-
   const code = `
    async function write({
     deviceInfo,
@@ -114,7 +108,6 @@ forBlock["changeuuid"] = function (
     Order.ATOMIC,
   );
   var value_charuuid = generator.valueToCode(block, "charUUID", Order.ATOMIC);
-  // TODO: Assemble javascript into code variable.
   var code = `
   deviceInfo.hashUUID.serviceUUID = ${value_serviceuuid};
   deviceInfo.hashUUID.characteristicUUID = ${value_charuuid};
@@ -159,4 +152,13 @@ forBlock["getGamma"] = function (
   generator: Blockly.CodeGenerator,
 ) {
   return [`deviceOrientation.gamma`, Order.ATOMIC];
+};
+
+forBlock["math_abs"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  var value_value = generator.valueToCode(block, "value", Order.ATOMIC);
+  var code = `Math.abs(${value_value})`;
+  return [code, Order.ATOMIC];
 };

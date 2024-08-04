@@ -321,6 +321,10 @@ export const toolbox = {
             },
           },
         },
+        {
+          kind: "block",
+          type: "math_abs",
+        },
       ],
     },
     {
