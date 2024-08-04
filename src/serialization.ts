@@ -18,43 +18,70 @@ export const save = function (workspace: Blockly.Workspace) {
 };
 
 export const saveFile = function (workspace: Blockly.Workspace) {
-  const data = Blockly.serialization.workspaces.save(workspace);
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = "workspace.json";
-  anchor.click();
+  const saveButton = document.getElementById("save") as HTMLButtonElement;
+
+  function saveWorkspaceAsJson(workspace: Blockly.Workspace) {
+    const data = Blockly.serialization.workspaces.save(workspace);
+    const blob = new Blob([JSON.stringify(data)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "workspace.json";
+    anchor.click();
+    save(workspace);
+  }
+  saveButton.addEventListener("click", () => {
+    try {
+      saveWorkspaceAsJson(workspace);
+    } catch (e) {
+      console.error(e);
+    }
+  });
 };
 /**
  * Loads saved state from local storage into the given workspace.
  * @param workspace Blockly workspace to load into.
  */
-export const loadFile = function (
-  workspace: Blockly.Workspace,
-  fileInput: HTMLInputElement,
-) {
-  const file = (fileInput as HTMLInputElement).files?.[0];
-  const reader = new FileReader();
+export const loadFile = function (workspace: Blockly.Workspace) {
+  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
 
-  reader.addEventListener(
-    "load",
-    () => {
-      const data = reader.result;
-      Blockly.Events.disable();
-      Blockly.serialization.workspaces.load(
-        JSON.parse(data as string),
-        workspace,
-        undefined,
-      );
-      Blockly.Events.enable();
-    },
-    false,
-  );
-
-  if (file) {
-    reader.readAsText(file);
+  function loadJsonAsWorkspace(
+    workspace: Blockly.Workspace,
+    fileInput: HTMLInputElement,
+  ) {
+    const file = (fileInput as HTMLInputElement).files?.[0];
+    const reader = new FileReader();
+    reader.addEventListener(
+      "load",
+      () => {
+        const data = reader.result;
+        Blockly.Events.disable();
+        Blockly.serialization.workspaces.load(
+          JSON.parse(data as string),
+          workspace,
+          undefined,
+        );
+        window.localStorage?.setItem(storageKey, data as string);
+        Blockly.Events.enable();
+      },
+      false,
+    );
+    if (file) {
+      reader.readAsText(file);
+    }
   }
+
+  fileInput.addEventListener("change", () => {
+    console.log("loading file");
+    try {
+      loadJsonAsWorkspace(workspace, fileInput);
+    } catch (e) {
+      console.error(e);
+    }
+    fileInput.value = "";
+  });
 };
 
 export const load = function (workspace: Blockly.Workspace) {
