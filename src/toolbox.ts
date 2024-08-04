@@ -620,6 +620,7 @@ export const toolbox = {
     {
       kind: "category",
       name: "geolocation",
+      categorystyle: "geolocation_category",
       contents: [
         {
           kind: "block",
@@ -638,6 +639,7 @@ export const toolbox = {
     {
       kind: "category",
       name: "orientation",
+      categorystyle: "orientation_category",
       contents: [
         {
           kind: "block",
@@ -660,6 +662,7 @@ export const toolbox = {
     {
       kind: "category",
       name: "bluetooth",
+      categorystyle: "bluetooth_category",
       contents: [
         {
           kind: "block",

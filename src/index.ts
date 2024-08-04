@@ -17,6 +17,7 @@ import { clearAllIntervals } from "./lib/clearAllIntervals";
 import { undo, redo } from "./lib/undoRedo";
 import playButtonSrc from "./assets/playButton.png";
 import pauseButtonSrc from "./assets/pause.png";
+import { theme } from "./lib/theme";
 import "./index.css";
 
 // Set up initial event listeners
@@ -45,6 +46,7 @@ if (!blocklyDiv) {
 
 const ws = Blockly.inject(blocklyDiv, {
   toolbox: toolbox,
+  theme: theme,
   zoom: {
     controls: true,
     wheel: true,
