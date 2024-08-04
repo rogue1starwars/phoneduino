@@ -15,7 +15,8 @@ import { handleConnect } from "./lib/bluetooth/handleConnect";
 import { defineBlocks } from "./lib/defineBlocks";
 import { clearAllIntervals } from "./lib/clearAllIntervals";
 import { undo, redo } from "./lib/undoRedo";
-import { write } from "./lib/bluetooth/bluetooth";
+import playButtonSrc from "./assets/playButton.png";
+import pauseButtonSrc from "./assets/pause.png";
 import "./index.css";
 
 // Set up initial event listeners
@@ -36,6 +37,7 @@ const codeDiv = document.getElementById("javascript")?.firstChild;
 const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 const runButton = document.getElementById("run") as HTMLButtonElement;
+const runStopImg = document.getElementById("runStopImg") as HTMLImageElement;
 
 if (!blocklyDiv) {
   throw new Error(`div with id 'blocklyDiv' not found`);
@@ -70,13 +72,13 @@ const runCode = () => {
 
   const func = new Function(" deviceInfo, outputDiv, intervalIds", code);
   func(deviceInfo, outputDiv, intervalIds);
-  runButton.textContent = "Stop";
+  runStopImg.src = pauseButtonSrc;
   isRunning = true;
 };
 
 const stopCode = () => {
   intervalIds = clearAllIntervals(intervalIds);
-  runButton.textContent = "Run";
+  runStopImg.src = playButtonSrc;
   isRunning = false;
 };
 

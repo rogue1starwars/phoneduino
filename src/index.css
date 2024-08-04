@@ -7,6 +7,16 @@ pre,
 code {
   overflow: auto;
 }
+@media (max-width: 600px) {
+  #header {
+    flex-direction: column;
+  }
+  #buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+}
 h1 {
   font-family: "Roboto", sans-serif;
   font-size: 1.2em;
@@ -18,15 +28,37 @@ button {
   border: none;
   outline: none;
   box-shadow: none;
+  cursor: pointer;
+}
+.buttonWithLetter {
   padding: 10px;
   margin: 5px;
-  cursor: pointer;
   border-radius: 5px;
 }
-@media (max-width: 600px) {
-  #header {
-    flex-direction: column;
-  }
+.buttonWithIcon {
+  padding: 7px;
+  display: inline-block;
+  border-radius: 100%;
+}
+.buttonWithIcon img {
+  width: 20px;
+  height: auto;
+  display: block;
+}
+#fileInput {
+  display: none;
+}
+#run img {
+  width: 15px;
+  margin: 2.5px;
+}
+#save img {
+  width: 15px;
+  margin: 2.5px;
+}
+#fileInputDummy img {
+  width: 15px;
+  margin: 2.5px;
 }
 #header {
   display: flex;

@@ -10,16 +10,34 @@
       <div id="header">
         <h1>PhoneDuino</h1>
         <div id="buttons">
-          <button id="run">Run</button>
-          <button id="connect">Connect</button>
-          <button id="undo">Undo</button>
-          <button id="redo">Redo</button>
-          <button id="javascriptButton" class="tabButton">Javascript</button>
-          <button id="outputButton" class="tabButton">Output</button>
-          <button id="save">Save</button>
+          <button id="run" class="buttonWithIcon">
+            <img id="runStopImg" src="./assets/playButton.png" />
+          </button>
+          <button id="connect" class="buttonWithIcon">
+            <img src="./assets/bluetooth.png" />
+          </button>
+          <button id="undo" class="buttonWithIcon">
+            <img src="./assets/undo.png" />
+          </button>
+          <button id="redo" class="buttonWithIcon">
+            <img src="./assets/redo.png" />
+          </button>
+          <button id="javascriptButton" class="tabButton buttonWithIcon">
+            <img src="./assets/js.png" />
+          </button>
+          <button id="outputButton" class="tabButton buttonWithIcon">
+            <img src="./assets/console.png" />
+          </button>
+          <button id="save" class="buttonWithIcon">
+            <img src="./assets/download.png" />
+          </button>
+          <button id="fileInputDummy" class="buttonWithIcon">
+            <img src="./assets/upload.png" />
+          </button>
           <input type="file" id="fileInput" />
         </div>
       </div>
+      <input type="file" id="fileInput" />
       <div id="blocklyDiv"></div>
     </div>
     <div id="outputPanel">

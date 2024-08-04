@@ -7,16 +7,16 @@ export const handleConnect = (deviceInfo: deviceInfo) => {
 
   connectButton &&
     connectButton.addEventListener("click", async () => {
-      connectButton.textContent = "Connecting...";
+      connectButton.style.border = "2px solid #6998ff";
       const connection = await connect({ deviceInfo });
       if (connection) {
         const { device, characteristic } = connection;
         deviceInfo.bluetoothDevice = device;
         deviceInfo.dataCharacteristic = characteristic;
-        connectButton.textContent = "Connected";
+        connectButton.style.backgroundColor = "#6998ff";
         connectButton.disabled = true;
       } else {
-        connectButton.textContent = "Connect";
+        connectButton.style.border = "none";
       }
     });
 };

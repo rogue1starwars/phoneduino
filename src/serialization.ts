@@ -45,6 +45,9 @@ export const saveFile = function (workspace: Blockly.Workspace) {
  * @param workspace Blockly workspace to load into.
  */
 export const loadFile = function (workspace: Blockly.Workspace) {
+  const fileInputDummy = document.getElementById(
+    "fileInputDummy",
+  ) as HTMLInputElement;
   const fileInput = document.getElementById("fileInput") as HTMLInputElement;
 
   function loadJsonAsWorkspace(
@@ -72,15 +75,17 @@ export const loadFile = function (workspace: Blockly.Workspace) {
       reader.readAsText(file);
     }
   }
-
-  fileInput.addEventListener("change", () => {
-    console.log("loading file");
-    try {
-      loadJsonAsWorkspace(workspace, fileInput);
-    } catch (e) {
-      console.error(e);
-    }
-    fileInput.value = "";
+  fileInputDummy.addEventListener("click", () => {
+    fileInput.click();
+    fileInput.addEventListener("change", () => {
+      console.log("loading file");
+      try {
+        loadJsonAsWorkspace(workspace, fileInput);
+      } catch (e) {
+        console.error(e);
+      }
+      fileInput.value = "";
+    });
   });
 };
 
