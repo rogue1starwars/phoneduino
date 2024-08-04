@@ -19,20 +19,16 @@ import { handleConnect } from "./lib/bluetooth/handleConnect";
 import { write } from "./lib/bluetooth/bluetooth";
 import "./index.css";
 
-// Connect to the bluetooth device
-const handleSaveFile = function () {
-  if (!ws) return;
-  saveFile(ws as Blockly.Workspace);
-};
-(window as any).handleSaveFile = handleSaveFile;
+// Define functions to handle saving and loading files
 
-const handleLoadFile = function () {
-  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
-  if (!ws || !fileInput) return;
-  loadFile(ws as Blockly.Workspace, fileInput);
-};
-(window as any).handleLoadFile = handleLoadFile;
+// const handleLoadFile = function () {
+//   const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+//   if (!ws || !fileInput) return;
+//   loadFile(ws as Blockly.Workspace, fileInput);
+// };
+// (window as any).handleLoadFile = handleLoadFile;
 
+// Define functions to handle connecting to a Bluetooth device
 const deviceInfo = {
   hashUUID: {
     serviceUUID: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
@@ -91,6 +87,8 @@ const ws = Blockly.inject(blocklyDiv, {
   },
   trashcan: true,
 });
+loadFile(ws as Blockly.Workspace);
+saveFile(ws as Blockly.Workspace);
 
 // This function resets the code and output divs, shows the
 // generated code from the workspace, and evals the code.
