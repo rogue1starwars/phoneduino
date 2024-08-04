@@ -12,7 +12,7 @@ import { bluetoothBlocks } from "./blocks/bluetooth";
 import { deviceOrientationBlocks } from "./blocks/deviceOrientation";
 import { forBlock } from "./generators/javascript";
 import { javascriptGenerator } from "blockly/javascript";
-import { save, load } from "./serialization";
+import { save, saveFile, load, loadFile } from "./serialization";
 import { toolbox } from "./toolbox";
 
 import { handleConnect } from "./lib/bluetooth/handleConnect";
@@ -20,6 +20,18 @@ import { write } from "./lib/bluetooth/bluetooth";
 import "./index.css";
 
 // Connect to the bluetooth device
+const handleSaveFile = function () {
+  if (!ws) return;
+  saveFile(ws as Blockly.Workspace);
+};
+(window as any).handleSaveFile = handleSaveFile;
+
+const handleLoadFile = function () {
+  const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+  if (!ws || !fileInput) return;
+  loadFile(ws as Blockly.Workspace, fileInput);
+};
+(window as any).handleLoadFile = handleLoadFile;
 
 const deviceInfo = {
   hashUUID: {
@@ -95,7 +107,6 @@ const runCode = () => {
     beta: 0,
     gamma: 0,
   };
-
   // Function to clear all intervals
   function clearAllIntervals() {
     for (let id of intervalIds) {
