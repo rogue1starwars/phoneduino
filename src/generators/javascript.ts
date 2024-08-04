@@ -19,13 +19,14 @@ forBlock["enableGeolocation"] = function (
   generator: Blockly.CodeGenerator,
   // Generate the function call for this block.
 ) {
-  const code = `if (typeof _latitude == "undfined" || typeof _longitude == "undefined") {
-  } else {
-    window.navigator.geolocation.getCurrentPosition((position) => {
-      _latitude = position.coords.latitude;
-      _longitude = position.coords.longitude;
-    });
-  }`;
+  const code = `
+  let _latitude = 0;
+  let _longitude = 0;
+  window.navigator.geolocation.getCurrentPosition((position) => {
+    _latitude = position.coords.latitude;
+    _longitude = position.coords.longitude;
+  });
+  `;
 
   return code;
 };
