@@ -661,6 +661,10 @@ export const toolbox = {
           kind: "block",
           type: "write",
         },
+        {
+          kind: "block",
+          type: "changeuuid",
+        },
       ],
     },
     {

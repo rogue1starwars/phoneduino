@@ -7,8 +7,6 @@
 import { Order } from "blockly/javascript";
 import * as Blockly from "blockly/core";
 
-import { write } from "../lib/bluetooth/bluetooth";
-
 // Export all the code generators for our custom blocks,
 // but don't register them with Blockly yet.
 // This file has no side effects!
@@ -59,7 +57,6 @@ if (lines.length > 10) {
   lines.pop();
   outputDiv.innerHTML = lines.join('<br>');
 }
-console.log(lines.length);
 outputDiv.innerHTML = ${text} + '<br>' + outputDiv.innerHTML;`;
   return code;
 };
@@ -77,57 +74,6 @@ forBlock["interval"] = function (
   `;
   return code;
 };
-// forBlock["connect"] = function (
-//   block: Blockly.Block,
-//   generator: Blockly.CodeGenerator,
-// ) {
-//   const code = `
-//   const deviceInfo = {
-//     hashUUID: {
-//       serviceUUID: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
-//       characteristicUUID: "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
-//     },
-//     bluetoothDevice: null,
-//     dataCharacteristic: null,
-//     hashUUID_lastConnected: "",
-//   };
-//
-//   async function connect({ deviceInfo }) {
-//     //Checking if the device is already connected
-//     if (deviceInfo.bluetoothDevice === null) {
-//       try {
-//         console.log("scanning for devices");
-//         const device = await navigator.bluetooth.requestDevice({
-//           acceptAllDevices: true,
-//           optionalServices: [deviceInfo.hashUUID.serviceUUID],
-//         });
-//
-//         // Connecting to the GATT server
-//         console.log("connecting to gatt server");
-//         if (device.gatt) {
-//           console.log("gatt server not found");
-//           return;
-//         }
-//         const server = await device.gatt.connect();
-//         console.log("Getting service");
-//         const service = await server.getPrimaryService(
-//           deviceInfo.hashUUID.serviceUUID,
-//         );
-//         console.log("Getting characteristic");
-//         const characteristic = await service.getCharacteristic(
-//           deviceInfo.hashUUID.characteristicUUID,
-//         );
-//         return { device, characteristic };
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     } else {
-//       console.log("device already connected");
-//     }
-//   }
-// `;
-//   return code;
-// };
 forBlock["write"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
@@ -137,7 +83,42 @@ forBlock["write"] = function (
 
   // TODO: Assemble javascript into the code variable.
 
-  const code = `write_to_device({deviceInfo: deviceInfo, data: ${data}});`;
+  const code = `
+   async function write({
+    deviceInfo,
+    data,
+  }) {
+    if (deviceInfo.dataCharacteristic !== null) {
+      try {
+        await deviceInfo.dataCharacteristic.writeValue(
+          new TextEncoder().encode(data),
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log("device not connected");
+    }
+  }
+  write({deviceInfo: deviceInfo, data: ${data}});`;
+  return code;
+};
+
+forBlock["changeuuid"] = function (
+  block: Blockly.Block,
+  generator: Blockly.CodeGenerator,
+) {
+  var value_serviceuuid = generator.valueToCode(
+    block,
+    "serviceUUID",
+    Order.ATOMIC,
+  );
+  var value_charuuid = generator.valueToCode(block, "charUUID", Order.ATOMIC);
+  // TODO: Assemble javascript into code variable.
+  var code = `
+  deviceInfo.hashUUID.serviceUUID = ${value_serviceuuid};
+  deviceInfo.hashUUID.characteristicUUID = ${value_charuuid};
+  \n`;
   return code;
 };
 
@@ -145,7 +126,13 @@ forBlock["enableDeviceOrientation"] = function (
   block: Blockly.Block,
   generator: Blockly.CodeGenerator,
 ) {
-  const code = `window.addEventListener("deviceorientationabsolute", (event) => {
+  const code = `
+  const deviceOrientation = {
+    alpha: 0,
+    beta: 0,
+    gamma: 0,
+  };
+  window.addEventListener("deviceorientationabsolute", (event) => {
   deviceOrientation.alpha = event.alpha;
   deviceOrientation.beta = event.beta;
   deviceOrientation.gamma = event.gamma;

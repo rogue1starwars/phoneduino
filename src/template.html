@@ -10,11 +10,10 @@
       <div id="header">
         <h1>PhoneDuino</h1>
         <div id="buttons">
+          <button id="run">Run</button>
           <button id="connect">Connect</button>
-          <button onclick="handleClick(this, 'generatedCode')">
-            Javascript
-          </button>
-          <button onclick="handleClick(this, 'output')">Output</button>
+          <button id="javascriptButton" class="tabButton">Javascript</button>
+          <button id="outputButton" class="tabButton">Output</button>
           <button id="save">Save</button>
           <input type="file" id="fileInput" />
         </div>
@@ -22,7 +21,7 @@
       <div id="blocklyDiv"></div>
     </div>
     <div id="outputPanel">
-      <pre id="generatedCode"><code></code></pre>
+      <pre id="javascript"><code></code></pre>
       <div id="output"></div>
     </div>
   </body>
