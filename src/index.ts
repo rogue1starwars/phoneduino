@@ -14,6 +14,7 @@ import { initialDeviceInfo } from "./lib/bluetooth/initialDeviceInfo";
 import { handleConnect } from "./lib/bluetooth/handleConnect";
 import { defineBlocks } from "./lib/defineBlocks";
 import { clearAllIntervals } from "./lib/clearAllIntervals";
+import { undo, redo } from "./lib/undoRedo";
 import { write } from "./lib/bluetooth/bluetooth";
 import "./index.css";
 
@@ -35,8 +36,6 @@ const codeDiv = document.getElementById("javascript")?.firstChild;
 const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 const runButton = document.getElementById("run") as HTMLButtonElement;
-const undoButton = document.getElementById("undo") as HTMLButtonElement;
-const redoButton = document.getElementById("redo") as HTMLButtonElement;
 
 if (!blocklyDiv) {
   throw new Error(`div with id 'blocklyDiv' not found`);
@@ -59,6 +58,9 @@ const ws = Blockly.inject(blocklyDiv, {
 // add event listeners to save and load once ws is defined
 loadFile(ws as Blockly.Workspace);
 saveFile(ws as Blockly.Workspace);
+
+undo(ws as Blockly.Workspace);
+redo(ws as Blockly.Workspace);
 
 const runCode = () => {
   const code = javascriptGenerator.workspaceToCode(ws as Blockly.Workspace);
@@ -87,13 +89,6 @@ if (ws) {
     } else {
       runCode();
     }
-  });
-
-  undoButton.addEventListener("click", () => {
-    ws.undo(false);
-  });
-  redoButton.addEventListener("click", () => {
-    ws.undo(true);
   });
 
   // Every time the workspace changes state, save the changes to storage.
