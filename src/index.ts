@@ -35,6 +35,8 @@ const codeDiv = document.getElementById("javascript")?.firstChild;
 const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 const runButton = document.getElementById("run") as HTMLButtonElement;
+const undoButton = document.getElementById("undo") as HTMLButtonElement;
+const redoButton = document.getElementById("redo") as HTMLButtonElement;
 
 if (!blocklyDiv) {
   throw new Error(`div with id 'blocklyDiv' not found`);
@@ -85,6 +87,13 @@ if (ws) {
     } else {
       runCode();
     }
+  });
+
+  undoButton.addEventListener("click", () => {
+    ws.undo(false);
+  });
+  redoButton.addEventListener("click", () => {
+    ws.undo(true);
   });
 
   // Every time the workspace changes state, save the changes to storage.
