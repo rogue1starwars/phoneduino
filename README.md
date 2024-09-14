@@ -2,13 +2,23 @@
 
 ## What is PhoneDuino??
 
-PhoneDuino is an smartphone application for IoT projects. Nowadays, smartphones contain a massive amount of high sensitive sensors. The concept of PhoneDuino is to take advantage of all the sensors in a smartphone when creating an IoT project.
+PhoneDuino is a smartphone application designed for IoT projects. Creating IoT devices on your own using microcomputers, motors, and sensors requires a lot of hard work, such as circuit designing, solder-mounting, and programming. To make this process easier and more enjoyable, we created a tool to use a smartphone as a microcomputer. Modern smartphones contain a large number of highly sensitive sensors. The concept of PhoneDuino is to use a smartphone as a microcomputer, and leverage these sensors when building IoT projects.
 
-PhoneDuino is currently available as a web application. [Visit application](https://phoneduino.rogue1starwars.com)
+## OVERVIEW
+
+PhoneDuino uses Blockly to allow users to write scripts. Modern microcomputers, such as Arduino, enable users to write C++ code for control. However, learning a new programming language can be overwhelming, which is why we decided to use visual programming for data processing. PhoneDuino also leverages various browser APIs to collect sensor data built into smartphones. Users can easily retrieve this data with a single command, without the need for complex libraries like those used in traditional microcomputers.
+
+One of the main challenges with using smartphones as microcomputers is the lack of GPIO pins, which means they can't directly control motors or light up LEDs. To solve this problem, PhoneDuino allows smartphones to connect with microcomputers via BLE (Bluetooth Low Energy) and send commands between them. With this feature, users can retrieve sensor data from phones, process it, and based on the results, send commands to the microcomputer to control motors or light up LEDs.
+
+## TECHNOLOGY
+
+PhoneDuino is built on top of the boiler template of Blockly. [See more about creating a blockly project](https://developers.google.com/blockly/guides/get-started/get-the-code). It uses regular HTML, CSS, and Typescript, and is built by webpack.
 
 ## Usage
 
-PhoneDuino allows users to get sensor data from a phone, manipulate them, and send them to a microcomputer. To do this, we used "Blockly", which is a visual programming framework to allow users to create their custom scripts to get data, process them and send them.
+PhoneDuino allows users to retrieve sensor data from a phone, manipulate it, and send it to a microcomputer. To achieve this, we used 'Blockly,' a visual programming framework that enables users to create custom scripts to retrieve, process, and transmit the data.
+
+PhoneDuino is currently available as a web application. [Visit application](https://phoneduino.rogue1starwars.com)
 
 [Learn more about Blockly](https://developers.google.com/blockly)
 
