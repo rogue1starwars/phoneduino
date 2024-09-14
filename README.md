@@ -2,6 +2,8 @@
 
 ## What is PhoneDuino??
 
+![cover](https://github.com/user-attachments/assets/eb6253df-ac3c-4779-8ca2-00dac4013195)
+
 PhoneDuino is a smartphone application designed for IoT projects. Creating IoT devices on your own using microcomputers, motors, and sensors requires a lot of hard work, such as circuit designing, solder-mounting, and programming. To make this process easier and more enjoyable, we created a tool to use a smartphone as a microcomputer. Modern smartphones contain a large number of highly sensitive sensors. The concept of PhoneDuino is to use a smartphone as a microcomputer, and leverage these sensors when building IoT projects.
 
 ## OVERVIEW
